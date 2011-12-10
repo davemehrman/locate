@@ -1,0 +1,52 @@
+<script type="text/javascript" charset="utf-8">
+function findLocation() {
+  navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+}
+function foundLocation(position)
+{
+  var lat = position.coords.latitude;
+  var long = position.coords.longitude;
+  alert('Found location: ' + lat + ', ' + long);
+}
+function noLocation()
+{
+  alert('Could not find location');
+}
+</script>
+
+Click the button to find your location:<br />
+<form><input type="button" value="Find me" onclick="javascript:findLocation();" /></form>
+
+<%= form_for(@location) do |f| %>
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+
+      <ul>
+      <% @location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br />
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br />
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
