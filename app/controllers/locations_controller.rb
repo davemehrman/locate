@@ -27,6 +27,10 @@ class LocationsController < ApplicationController
   # GET /locations/new.json
   def new
     @location = Location.new
+    @location.latitude = params[:lat]
+    @location.longitude = params[:long]
+  
+      
 
     respond_to do |format|
       format.html # new.html.erb
