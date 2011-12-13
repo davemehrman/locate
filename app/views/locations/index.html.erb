@@ -1,19 +1,24 @@
 <script type="text/javascript" charset="utf-8">
 
-function findLocation() {
+function findLocation(event) {
+  event.preventDefault();
   navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 }
 function foundLocation(position)
 {
+  
   var lat = position.coords.latitude;
-  var long = position.coords.longitude;	
-  alert('Found location: ' + lat + ', ' + long);
+  var long = position.coords.longitude;
+  window.location = "<%= new_location_path%>?lat=" + lat + "&long=" + long;
+  //alert("<%= new_location_path%>?lat=" + lat + "&long=" + long);
+  //alert('Found location: ' + lat + ', ' + long);
   
 }
 function noLocation()
 {
   alert('Could not find location');
 }
+
 </script>
 
 <h1>Listing locations</h1>
@@ -49,8 +54,5 @@ function noLocation()
 
 <br />
 
-Click the button to find your location:<br />
-<form><input type="button" value="Find me" onclick="javascript:findLocation();" /></form>
 
-
-<%= link_to 'New Location', new_location_path %>
+<%= link_to 'New Location', new_location_path, :onclick => "javascript:findLocation(event)" %>
